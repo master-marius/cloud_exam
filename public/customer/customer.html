@@ -1,7 +1,14 @@
-<div class="Customer">
-    <span>{{ customer.name }}</span>
-    <span>{{ customer.product.name }}</span>
-    <span>{{ customer.queuedTime }}</span>
-    <button ng-if="!customer.status" ng-click="remove()">Remove</button>
-    <button ng-if="!customer.status" ng-click="serve()">Serve</button>
+<div class="Customer row " style="margin-bottom: 10px;">
+	<div class="col-sm-9">
+	    <span class="col-sm-3">{{ customer.name }}</span>
+	    <span class="col-sm-3">{{ customer.product.name }}</span>
+	    <span class="col-sm-3">{{ customer.queuedTime }}</span>
+	    <div class="col-sm-3">
+	    	<div class="pull-right">
+	    		<button class="btn btn-default" ng-if="!customer.status" ng-click="remove()">Remove</button>
+	    		<button class="btn btn-default" ng-if="!customer.status" ng-click="serve()">Serve</button>
+	    	</div>
+	    	
+	    </div>
+	</div>
 </div>

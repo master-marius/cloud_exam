@@ -46,6 +46,9 @@ function removeCustomer(targetCustomerId){
 
 
 var app = express();
+var path = require('path');
+app.use(express.static(__dirname + '/node_modules'));
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -74,6 +77,8 @@ app.use(function (req, res) {
         fileServer.serve(req, res);
     }).resume();
 })
+
+
 
 app.listen(1337)
 console.log('Server is running @ 127.0.0.1:1337...');
