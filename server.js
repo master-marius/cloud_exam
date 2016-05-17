@@ -21,6 +21,7 @@ function serveCustomer(id){
         if(customer.id == id){
             customer.status = 'served';
             servedCustomers.push(customer);
+            removeCustomer(id);
             return false;
         }else{
             return true;
@@ -30,6 +31,9 @@ function serveCustomer(id){
 
 function addCustomer(customer){
     customer.id = uuid.v4();
+
+    customer.product = JSON.parse(customer.product);
+    // console.log(JSON.parse(customer.product));
     customers.push(customer);
 }
 
@@ -52,11 +56,11 @@ app.get('/api/customers/served', function(req,res){
     res.send(servedCustomers);
 })
 app.post('/api/customer/add', function(req,res){
-    addCustomer(req.body);
+    addCustomer(req.query);
     res.end('Customer was added!');
 });
 app.post('/api/customer/serve', function(req,res){
-    serveCustomer(req.body.id);
+    serveCustomer(req.query.id);
     res.end('Customer was served!');
 });
 app.delete('/api/customer/remove', function(req,res){

@@ -1,13 +1,13 @@
 (function () {
-    angular.module('qudini.QueueApp')
+    angular.module('QueueApp')
         .directive('addCustomer', AddCustomer)
-
 
     function AddCustomer($http){
         return {
             restrict: 'E',
             scope:{
-                onAdded: '&'
+                onAdded: '=',
+                customers: '=',
             },
             templateUrl:'/add-customer/add-customer.html',
             link: function(scope){
@@ -19,7 +19,13 @@
                 ];
 
                 scope.addCustomer = function(){
-
+                    $http({
+                        method: 'POST',
+                        url: '/api/customer/add',
+                        params: {name: scope.customer.name, product: scope.customer.product}
+                    }).then(function(res){
+                        scope.onAdded();
+                    })
                 }
             }
         }

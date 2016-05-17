@@ -1,18 +1,26 @@
 (function () {
+    'use strict';
 
-    angular.module('qudini.QueueApp', [])
-        .controller('QueueCtrl', QueueCtrl)
+    var QueueApp = angular.module("QueueApp", []);
 
-    /**
-     * Bonus points - manipulating the without waiting for the
-     * server request
-     */
-    function QueueCtrl($scope, $http) {
-
+    QueueApp.controller('QueueCtrl', function($scope, $http) {
+        
         $scope.customers = [];
         $scope.customersServed = [];
         _getCustomers();
         _getServedCustomers();
+
+        function _getCustomers(){
+            return $http.get('/api/customers').then(function(res){
+                $scope.customers = res.data;
+            })
+        }
+
+        function _getServedCustomers(){
+            return $http.get('/api/customers/served').then(function(res){
+                $scope.customersServed = res.data;
+            })
+        }
 
         $scope.onCustomerAdded = function(){
             _getCustomers();
@@ -26,20 +34,11 @@
             _getCustomers();
             _getServedCustomers()
         }
+    });
 
-        function _getServedCustomers(){
-            return $http.get('/api/customers/served').then(function(res){
-                $scope.customersServed = res.data;
-            })
-        }
-
-        function _getCustomers(){
-            return $http.get('/api/customers').then(function(res){
-                $scope.customers = res.data;
-            })
-        }
-    }
-
-
+    /**asd
+     * Bonus points - manipulating the without waiting for the
+     * server request
+     */
 })()
 
