@@ -18,7 +18,13 @@
                     {name: 'Cryptography advice'}
                 ];
 
+                scope.customer = {};
+
                 scope.addCustomer = function(){
+
+                    if (scope.customer.product) {
+
+
                     $http({
                         method: 'POST',
                         url: '/api/customer/add',
@@ -26,6 +32,9 @@
                     }).then(function(res){
                         scope.onAdded();
                     })
+                    }else{
+                        alert('Please select a product');
+                    }
                 }
             }
         }
